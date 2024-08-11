@@ -1,6 +1,6 @@
 # numbers-to-words-ar-en
 
-<p style="color:blue">Convert numbers into words in both English and Arabic.</p>
+<p style="color:blue">Convert numbers between 1 and 999999999 into words in both English and Arabic.</p>
 
 ### Installation
 
