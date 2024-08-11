@@ -5,4 +5,4 @@ example :
 numbersToWords(100); // Output: "one hundred"
 
 numbersToWords(100, 'ar'); // Output: "مئة"
-![npm version](https://img.shields.io/npm/v/numbers-to-words.svg?color=brightgreen)
+<span style="color:red">This text is red</span>
