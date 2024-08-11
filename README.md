@@ -1,6 +1,4 @@
-example :
-
-# numbersToWords
+# numbers-to-words-ar-en
 
 <p style="color:blue">Convert numbers into words in both English and Arabic.</p>
 
