@@ -5,4 +5,15 @@ example :
 numbersToWords(100); // Output: "one hundred"
 
 numbersToWords(100, 'ar'); // Output: "مئة"
-<span style="color:red">This text is red</span>
+
+# numbersToWords Library
+
+<p style="color:blue">Convert numbers into words in both English and Arabic.</p>
+
+🚀 **Fast and easy conversion of numbers to words!**
+
+### Installation
+
+```bash
+npm install numbers-to-words
+```
