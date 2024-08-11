@@ -1,4 +1,4 @@
-function numbersToWords(num, lang) {
+export function numbersToWords(num, lang) {
   var ones_ar = [
     "",
     "واحد",
@@ -177,7 +177,7 @@ function numbersToWords(num, lang) {
 }
 
 // Export the function for use in other files (Node.js style)
-module.exports = numbersToWords;
+// module.exports = numbersToWords;
 
 // Example usage:
 console.log(numbersToWords(12345, "ar")); // Arabic output
