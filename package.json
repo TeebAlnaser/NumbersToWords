@@ -7,5 +7,7 @@
     "type": "git",
     "url": "https://github.com/TeebAlnaser/NumbersToWords.git"
   },
-  "author": "Teeba","type": "module"
+  "author": "Teeba",
+  "type": "module",
+  "license": "MIT"
 }
