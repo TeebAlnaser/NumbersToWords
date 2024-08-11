@@ -1,5 +1,5 @@
 export function numbersToWords(num, lang) {
-  var ones_ar = [
+  const ones_ar = [
     "",
     "واحد",
     "اثنان",
@@ -11,9 +11,9 @@ export function numbersToWords(num, lang) {
     "ثمانية",
     "تسعة",
   ];
-  var tens_ar = [
+  const tens_ar = [
     "",
-    "",
+    "عشر",
     "عشرون",
     "ثلاثون",
     "أربعون",
@@ -23,7 +23,7 @@ export function numbersToWords(num, lang) {
     "ثمانون",
     "تسعون",
   ];
-  var teens_ar = [
+  const teens_ar = [
     "عشرة",
     "أحد عشر",
     "اثنا عشر",
@@ -35,6 +35,7 @@ export function numbersToWords(num, lang) {
     "ثمانية عشر",
     "تسعة عشر",
   ];
+
   var ones = [
     "",
     "one",
@@ -75,10 +76,15 @@ export function numbersToWords(num, lang) {
   function numberToArabicWords(num) {
     function convert_millions_ar(num) {
       if (num >= 1000000) {
+        const millions = Math.floor(num / 1000000);
+
+        const remainder = num % 1000000;
+
+        const FirstNumber =
+          millions == 1 ? "مليون" : convert_hundreds_ar(millions) + " مليون ";
         return (
-          convert_millions_ar(Math.floor(num / 1000000)) +
-          " مليون " +
-          convert_thousands_ar(num % 1000000)
+          FirstNumber +
+          (remainder === 0 ? "" : " و " + convert_thousands_ar(remainder))
         );
       } else {
         return convert_thousands_ar(num);
@@ -87,10 +93,17 @@ export function numbersToWords(num, lang) {
 
     function convert_thousands_ar(num) {
       if (num >= 1000) {
+        const thousands = Math.floor(num / 1000);
+        const remainder = num % 1000;
+        const FirstNumber =
+          thousands == 1
+            ? "الف"
+            : thousands == 2
+            ? "الفان"
+            : convert_hundreds_ar(thousands) + " ألف ";
         return (
-          convert_hundreds_ar(Math.floor(num / 1000)) +
-          " ألف " +
-          convert_hundreds_ar(num % 1000)
+          FirstNumber +
+          (remainder === 0 ? "" : " و " + convert_hundreds_ar(remainder))
         );
       } else {
         return convert_hundreds_ar(num);
@@ -98,9 +111,22 @@ export function numbersToWords(num, lang) {
     }
 
     function convert_hundreds_ar(num) {
-      if (num > 99) {
+      if (num == 100) {
+        return "مئة";
+      } else if (num == 200) {
+        return "مئتان";
+      } else if (num > 99) {
+        const hundreds = Math.floor(num / 100);
+        const remainder = num % 100;
+        const FirstNumber =
+          hundreds == 1
+            ? "مئة"
+            : hundreds == 2
+            ? "مئتان"
+            : ones_ar[hundreds] + " مئة ";
         return (
-          ones_ar[Math.floor(num / 100)] + " مئة " + convert_tens_ar(num % 100)
+          FirstNumber +
+          (remainder === 0 ? "" : " و " + convert_tens_ar(remainder))
         );
       } else {
         return convert_tens_ar(num);
@@ -111,14 +137,17 @@ export function numbersToWords(num, lang) {
       if (num < 10) return ones_ar[num];
       else if (num >= 10 && num < 20) return teens_ar[num - 10];
       else {
-        return tens_ar[Math.floor(num / 10)] + " " + ones_ar[num % 10];
+        const tensPart = tens_ar[Math.floor(num / 10)];
+        const onesPart = ones_ar[num % 10];
+        return onesPart ? `${onesPart} و ${tensPart}` : tensPart;
       }
     }
+
     if (num === 0) return "صفر";
-    else return convert_millions_ar(num);
+    else return convert_millions_ar(num).trim();
   }
 
-  function convertNumbersToEnglish(num) {
+  function numberToEnglishWords(num) {
     function convert_millions(num) {
       if (num >= 1000000) {
         return (
@@ -161,24 +190,15 @@ export function numbersToWords(num, lang) {
       }
     }
 
-    function convert(num) {
-      if (num == 0) return "zero";
-      else return convert_millions(num);
-    }
-
-    return convert(num);
+    if (num == 0) return "zero";
+    else return convert_millions(num);
   }
 
-  if (lang == "ar") {
+  if (num > 999999999)
+    return "we can only convert numbers from 1 to 999999999 :) ";
+  else if (lang == "ar") {
     return numberToArabicWords(num);
   } else {
-    return convertNumbersToEnglish(num);
+    return numberToEnglishWords(num);
   }
 }
-
-// Export the function for use in other files (Node.js style)
-// module.exports = numbersToWords;
-
-// Example usage:
-console.log(numbersToWords(12345, "ar")); // Arabic output
-console.log(numbersToWords(12345, "en")); // English output
